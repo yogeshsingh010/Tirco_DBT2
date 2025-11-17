@@ -1,0 +1,14 @@
+version: 2
+
+sources:
+  - name: netsuite_iceberg
+    database: |
+      {%- if  target.name == "dev" -%} DEV_BRONZE
+      {%- elif target.name == "prod"  -%} PROD_BRONZE
+      {%- else -%} invalid_database
+      {%- endif -%}
+    schema: ICEBERG_NETSUITE
+    tables:
+      - name: orders  # Replace with your actual table name, e.g., netsuite_orders
+      - name: customers  # Add more: - name: transactions_raw
+      # List ALL your Iceberg tables here

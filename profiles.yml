@@ -1,0 +1,15 @@
+Tireco_DBT:
+  target: dev
+  outputs:
+    Prod:
+      type: snowflake
+      role: FR_PROD_SERVICE
+      warehouse: PROD_SERVICE_WH
+      database: PROD_SILVER
+      schema: dbt_tirco
+    dev:
+      type: snowflake
+      role: FR_DEV_SERVICE
+      warehouse: DEV_SERVICE_WH
+      database: DEV_SILVER
+      schema: dbt_dev_tirco

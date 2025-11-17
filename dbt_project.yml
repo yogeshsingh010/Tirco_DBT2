@@ -1,0 +1,30 @@
+name: 'Tireco_DBT'
+version: '1.0.0'
+config-version: 2
+
+profile: 'Tireco_DBT'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+require-dbt-version: ">=1.8.0"
+
+models:
+  Tireco_DBT:
+    staging:
+      +materialized: table
+      +schema: STAGE
+      +database: "{{ 'DEV_SILVER' if target.name == 'dev' else 'PROD_SILVER' }}"
+    warehouse:
+      +materialized: view
+      +schema: WAREHOUSE
+      +database: "{{ 'DEV_SILVER' if target.name == 'dev' else 'PROD_SILVER' }}"
+    marts:
+      +materialized: view
+      +schema: MART
+      +database: "{{ 'DEV_GOLD' if target.name == 'dev' else 'PROD_GOLD' }}"
+
